@@ -1,0 +1,83 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #222;
+  background: #fafafa;
+  line-height: 1.7;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 40px;
+  padding: 40px 20px;
+}
+
+.sidebar {
+  position: sticky;
+  top: 20px;
+  align-self: start;
+}
+
+.avatar {
+  width: 180px;
+  border-radius: 12px;
+  display: block;
+  margin-bottom: 20px;
+  object-fit: cover;
+}
+
+.sidebar h1 {
+  font-size: 28px;
+  margin: 0 0 10px;
+}
+
+.sidebar h1 span {
+  font-size: 18px;
+  color: #666;
+}
+
+.role {
+  font-weight: bold;
+}
+
+.links {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.links a, .pub-links a {
+  color: #0056b3;
+  text-decoration: none;
+}
+
+.content section {
+  margin-bottom: 48px;
+}
+
+.content h2 {
+  font-size: 26px;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+}
+
+.pub {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+@media (max-width: 800px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+  }
+}
