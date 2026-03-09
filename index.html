@@ -3,78 +3,624 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>你的名字 | Personal Homepage</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Ziqian Qiao | Personal Homepage</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --card: #ffffff;
+      --text: #2c2f36;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --link: #1d4ed8;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 24px 20px 48px;
+    }
+
+    .topbar {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #4b5563;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .sidebar,
+    .main-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar {
+      padding: 28px 24px;
+      position: sticky;
+      top: 20px;
+    }
+
+    .avatar {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      margin: 8px auto 18px;
+      border: 4px solid #f3f4f6;
+    }
+
+    .name {
+      text-align: center;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .role {
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .bio-quote {
+      color: #4b5563;
+      margin: 18px 0 22px;
+    }
+
+    .side-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 18px;
+    }
+
+    .side-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #374151;
+    }
+
+    .main-card {
+      padding: 22px 28px 30px;
+    }
+
+    .section {
+      margin-bottom: 26px;
+    }
+
+    .section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 0 0 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .about p,
+    .research p,
+    .contact p {
+      margin: 0 0 10px;
+    }
+
+    .news-list {
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    .news-list li {
+      margin-bottom: 8px;
+    }
+
+    .pub-list {
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+    }
+
+    .pub-card {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 24px;
+      align-items: start;
+      padding: 14px 0 4px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .pub-card:last-child {
+      border-bottom: none;
+    }
+
+    .pub-figure {
+      width: 100%;
+    }
+
+    .figure-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+      transition: transform 0.2s ease;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      height: 270px;
+    }
+
+    .figure-link:hover {
+      transform: translateY(-2px);
+    }
+
+    .pub-thumb {
+      width: 100%;
+      height: 250px;
+      object-fit: contain;
+      display: block;
+      background: #f8fafc;
+      padding: 8px;
+    }
+
+    .zoom-tip {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    .pub-body h3 {
+      font-size: 26px;
+      line-height: 1.35;
+      margin: 0 0 10px;
+      font-weight: 700;
+    }
+
+    .authors {
+      margin: 0 0 8px;
+      color: #4b5563;
+      font-size: 18px;
+    }
+
+    .venue {
+      margin: 0 0 10px;
+      font-size: 17px;
+      color: #374151;
+    }
+
+    .pub-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin: 10px 0 12px;
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .abstract {
+      margin: 0;
+      color: #374151;
+      font-size: 17px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #3730a3;
+      font-size: 13px;
+      font-weight: 700;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .simple-list {
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    .simple-list li {
+      margin-bottom: 8px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      padding: 28px;
+    }
+
+    .modal.open {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      max-width: 96vw;
+      max-height: 90vh;
+      border-radius: 12px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+      background: #fff;
+    }
+
+    .modal-close {
+      position: fixed;
+      top: 18px;
+      right: 24px;
+      font-size: 40px;
+      line-height: 1;
+      color: #fff;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    @media (max-width: 1080px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+
+      .pub-card {
+        grid-template-columns: 1fr;
+      }
+
+      .pub-thumb {
+        height: 220px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 14px 12px 30px;
+      }
+
+      .main-card,
+      .sidebar {
+        padding: 18px 16px;
+      }
+
+      .pub-body h3 {
+        font-size: 22px;
+      }
+
+      .authors,
+      .venue,
+      .abstract,
+      .pub-links {
+        font-size: 16px;
+      }
+
+      .topbar {
+        font-size: 22px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <aside class="sidebar">
-      <img src="images/avatar.jpg" alt="头像" class="avatar">
-      <h1>你的中文名<br><span>Your English Name</span></h1>
-      <p class="role">Master Student / Researcher</p>
-      <p>你的学校或单位</p>
-      <p>你的研究方向</p>
-      <p>📍 你的城市</p>
-      <p>📧 你的邮箱</p>
+  <div class="page">
+    <div class="topbar">Personal Page</div>
 
-      <div class="links">
-        <a href="#">GitHub</a>
-        <a href="#">Google Scholar</a>
-        <a href="#">ORCID</a>
-        <a href="#">CV</a>
-      </div>
-    </aside>
+    <div class="layout">
+      <aside class="sidebar">
+        <img src="images/avatar.jpg" alt="Ziqian Qiao" class="avatar">
 
-    <main class="content">
-      <section>
-        <h2>About Me</h2>
-        <p>
-          这里写你的自我介绍。你是谁、你现在在做什么、你的研究兴趣是什么。
+        <div class="name">乔子谦<br><span class="muted" style="font-size:18px;">Ziqian Qiao</span></div>
+        <div class="role">Master Student · AI Researcher</div>
+
+        <p class="bio-quote">
+          Research on medical AI, trustworthy clinical decision support,
+          medication recommendation, and biomedical data mining.
         </p>
-      </section>
 
-      <section>
-        <h2>News</h2>
-        <ul>
-          <li><strong>2026.03</strong> 在这里写你的最新动态。</li>
-          <li><strong>2026.02</strong> 在这里写论文、项目或获奖信息。</li>
-        </ul>
-      </section>
+        <div class="side-list">
+          <div class="side-item">📍 Beijing, China</div>
+          <div class="side-item">✉️ <a href="mailto:ziqianqiao0102@163.com">Email</a></div>
+          <div class="side-item">💻 <a href="https://github.com/ZiqianQiao" target="_blank" rel="noopener noreferrer">Github</a></div>
+          <div class="side-item"> 🆔 <a href="#" target="_blank" rel="noopener noreferrer">ORCID</a></div>
+        </div>
+      </aside>
 
-      <section>
-        <h2>Publications</h2>
-        <div class="pub">
-          <h3>论文标题 1</h3>
-          <p>作者信息</p>
-          <p>期刊 / 会议 / 状态</p>
-          <p class="pub-links">
-            <a href="#">Paper</a>
-            <a href="#">Code</a>
+      <main class="main-card">
+        <section class="section about">
+          <h2 class="section-title">😊 About Me</h2>
+          <p>
+            I am Ziqian Qiao, a master's student at Beijing University of Technology.
+            My research focuses on medical artificial intelligence, biomedical data mining,
+            interpretable clinical decision support, and trustworthy medication recommendation.
           </p>
-        </div>
+          <p>
+            My recent work centers on hypertension risk prediction, knowledge-augmented medication recommendation,
+            contraindication-aware modeling, and interpretable deep-to-shallow distillation for transparent
+            clinical decision paths. I am particularly interested in combining domain knowledge, generative modeling,
+            and explainable AI to build reliable medical decision systems.
+          </p>
+        </section>
 
-        <div class="pub">
-          <h3>论文标题 2</h3>
-          <p>作者信息</p>
-          <p>期刊 / 会议 / 状态</p>
-        </div>
-      </section>
+        <section class="section">
+          <h2 class="section-title">🔥 News</h2>
+          <ul class="news-list">
+            <li><strong>2025</strong>: Continued research on interpretable medication recommendation and deep-to-shallow distillation frameworks.</li>
+            <li><strong>2025</strong>: Completed an internship at XPENG, focusing on domain corpus construction, tokenizer optimization, and large-model evaluation.</li>
+            <li><strong>2024</strong>: Published and advanced multiple works on hypertension prediction, drug recommendation, and medical AI.</li>
+            <li><strong>2023</strong>: Began master's study at Beijing University of Technology.</li>
+          </ul>
+        </section>
 
-      <section>
-        <h2>Projects</h2>
-        <ul>
-          <li>项目 1：一句话介绍。</li>
-          <li>项目 2：一句话介绍。</li>
-        </ul>
-      </section>
+        <section class="section">
+          <h2 class="section-title">📑 Publications</h2>
 
-      <section>
-        <h2>Contact</h2>
-        <p>Email: 你的邮箱</p>
-      </section>
-    </main>
+          <div class="pub-list">
+
+            <article class="pub-card">
+              <div class="pub-figure">
+                <a href="images/papers/wise-full.jpg" class="figure-link lightbox-trigger">
+                  <img src="images/papers/wise-thumb.jpg" alt="WISE 2024 figure" class="pub-thumb">
+                </a>
+                <div class="zoom-tip">Click to enlarge the figure</div>
+              </div>
+              <div class="pub-body">
+                <h3>A Hypertension Early Warning Model Combining Generative Adversarial Networks and Long Short-Term Memory Neural Networks</h3>
+                <p class="authors">S. Lin, <strong>Z. Qiao</strong>, J. Chen, Z. Huang</p>
+                <p class="venue">
+                  <a href="https://wise2024-qatar.com/" target="_blank" rel="noopener noreferrer">WISE 2024</a>,
+                  2025 <span class="badge">CCF-C</span>
+                </p>
+                <div class="pub-links">
+                  <a href="https://link.springer.com/chapter/10.1007/978-981-96-1483-7_29" target="_blank" rel="noopener noreferrer">Paper</a>
+                </div>
+                <p class="abstract">
+                  <strong>Introduction:</strong> This paper proposes a hypertension early warning framework for small-sample
+                  medical scenarios. It combines generative adversarial networks with long short-term memory modeling to
+                  augment limited clinical data and improve temporal risk prediction. The method is designed to enhance
+                  early identification of hypertension risk under constrained and imbalanced EHR conditions.
+                </p>
+              </div>
+            </article>
+
+            <article class="pub-card">
+              <div class="pub-figure">
+                <a href="images/papers/tsac-full.jpg" class="figure-link lightbox-trigger">
+                  <img src="images/papers/tsac-thumb.jpg" alt="TSAC-DRM figure" class="pub-thumb">
+                </a>
+                <div class="zoom-tip">Click to enlarge the figure</div>
+              </div>
+              <div class="pub-body">
+                <h3>TSAC-DRM: A Drug Recommendation Model Based on Two-Stage Attention Mechanism and Constraint Learning</h3>
+                <p class="authors">S. Lin, <strong>Z. Qiao</strong>, J. Chen</p>
+                <p class="venue">
+                  <a href="https://www.wi-iat.com/wi-iat2024/" target="_blank" rel="noopener noreferrer">IEEE/WIC International Conference on Web Intelligence and Intelligent Agent Technology (WI-IAT 2024)</a>,
+                  2024 <span class="badge">CCF-C</span>
+                </p>
+                <div class="pub-links">
+                  <a href="https://doi.org/10.1109/WI-IAT62293.2024.00091" target="_blank" rel="noopener noreferrer">Paper</a>
+                </div>
+                <p class="abstract">
+                  <strong>Introduction:</strong> This work introduces a drug recommendation framework based on a two-stage
+                  attention mechanism and constraint learning. It models longitudinal patient history more effectively,
+                  while explicitly considering medication safety constraints. The framework aims to improve the accuracy,
+                  temporal modeling capacity, and clinical rationality of recommendation results.
+                </p>
+              </div>
+            </article>
+
+            <article class="pub-card">
+              <div class="pub-figure">
+                <a href="images/papers/hrpog-full.jpg" class="figure-link lightbox-trigger">
+                  <img src="images/papers/hrpog-thumb.jpg" alt="HRP-OG figure" class="pub-thumb">
+                </a>
+                <div class="zoom-tip">Click to enlarge the figure</div>
+              </div>
+              <div class="pub-body">
+                <h3>HRP-OG: Online Learning with Generative Feature Replay for Hypertension Risk Prediction in a Nonstationary Environment</h3>
+                <p class="authors">S. Lin, H. Yan, S. Zhou, <strong>Z. Qiao</strong>, J. Chen</p>
+                <p class="venue">
+                  <a href="https://www.mdpi.com/journal/sensors" target="_blank" rel="noopener noreferrer">Sensors</a>,
+                  2024 <span class="badge">SCI · Q2 · IF 3.5</span>
+                </p>
+                <div class="pub-links">
+                  <a href="https://www.mdpi.com/1424-8220/24/15/5033" target="_blank" rel="noopener noreferrer">Paper</a>
+                </div>
+                <p class="abstract">
+                  <strong>Introduction:</strong> This paper studies hypertension risk prediction in nonstationary clinical
+                  environments. It proposes an online learning strategy with generative feature replay to address data
+                  drift, class imbalance, and sparse longitudinal visits. The framework improves robustness and
+                  adaptability for real-world EHR-based risk prediction tasks.
+                </p>
+              </div>
+            </article>
+
+            <article class="pub-card">
+              <div class="pub-figure">
+                <a href="images/papers/katmed-full.jpg" class="figure-link lightbox-trigger">
+                  <img src="images/papers/katmed-thumb.jpg" alt="KATMed figure" class="pub-thumb">
+                </a>
+                <div class="zoom-tip">Click to enlarge the figure</div>
+              </div>
+              <div class="pub-body">
+                <h3>KATMed: A Knowledge-Augmented Transformer Model for Contraindication-Aware Medication Recommendation in Comorbidities</h3>
+                <p class="authors"><strong>Z. Qiao</strong>, S. Lin, J. Fan, J. Chen, Z. Tang, Z. Zhang</p>
+                <p class="venue">
+                  <a href="https://www.sciencedirect.com/journal/journal-of-biomedical-informatics" target="_blank" rel="noopener noreferrer">Journal of Biomedical Informatics</a>,
+                  2025/2026 <span class="badge">SCI · Q2 · IF 4.5</span>
+                </p>
+                <div class="pub-links">
+                  <a href="https://www.sciencedirect.com/science/article/abs/pii/S1532046426000158" target="_blank" rel="noopener noreferrer">Paper</a>
+                </div>
+                <p class="abstract">
+                  <strong>Introduction:</strong> KATMed is a knowledge-augmented transformer model for contraindication-aware
+                  medication recommendation in comorbidity scenarios. It integrates positive medical knowledge with
+                  negative safety constraints to jointly optimize recommendation accuracy and prescription safety.
+                  The model is designed to provide more reliable support for complex clinical decision-making.
+                </p>
+              </div>
+            </article>
+
+            <article class="pub-card">
+              <div class="pub-figure">
+                <a href="images/papers/dssd-full.jpg" class="figure-link lightbox-trigger">
+                  <img src="images/papers/dssd-thumb.jpg" alt="DSS-D figure" class="pub-thumb">
+                </a>
+                <div class="zoom-tip">Click to enlarge the figure</div>
+              </div>
+              <div class="pub-body">
+                <h3>DSS-D: A Deep-to-Shallow Synergistic Distillation Framework for Interpretable Deep Medication Recommendation Modeling</h3>
+                <p class="authors"><strong>Z. Qiao</strong>, S. Lin, J. Chen</p>
+                <p class="venue">
+                  Manuscript in progress <span class="badge">Interpretable AI</span>
+                </p>
+                <div class="pub-links">
+                  <span class="muted">Paper (Coming Soon)</span>
+                </div>
+                <p class="abstract">
+                  <strong>Introduction:</strong> DSS-D is an interpretable deep-to-shallow synergistic distillation framework
+                  for medication recommendation. It distills a deep neural recommender into a shallow multi-label
+                  decision-tree structure with symbolic decision paths, while introducing adaptive clinical co-pattern
+                  encoding. The framework aims to enhance interpretability without discarding the predictive strength
+                  of deep models.
+                </p>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">🧪 Projects & Experience</h2>
+          <ul class="simple-list">
+            <li><strong>Livable City Integrated Service Platform</strong> — Participated in a national key R&amp;D project and deployed chronic disease early-warning models on industrial servers.</li>
+            <li><strong>Precision Matching Mechanism for Disabled Elderly Care Services</strong> — Participated in literature review, policy analysis, and proposal integration for a national social science project.</li>
+            <li><strong>Age-Friendly Community Construction Project</strong> — Coordinated proposal content, framework diagrams, and budgeting materials.</li>
+            <li><strong>XPENG Internship (2025)</strong> — Worked on domain corpus construction, tokenizer optimization, evaluation, and filtering for large-model applications.</li>
+          </ul>
+        </section>
+
+        <section class="section research">
+          <h2 class="section-title">🔬 Research Interests</h2>
+          <p>
+            My research interests include medical data analysis, interpretable clinical AI,
+            knowledge-enhanced modeling, trustworthy medication recommendation,
+            biomedical generative modeling, and multimodal learning.
+          </p>
+          <p>
+            In future doctoral study, I hope to further explore explainable cross-modal generation
+            from multi-omics to tissue structure, small-sample multimodal modeling,
+            and spatiotemporal generative models for disease progression.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">🏅 Honors & Awards</h2>
+          <ul class="simple-list">
+            <li>Second-Class Graduate Academic Scholarship, Beijing University of Technology</li>
+            <li>Multiple Comprehensive Quality Scholarships, Wuhan Institute of Technology</li>
+            <li>Outstanding Graduate, Wuhan Institute of Technology</li>
+            <li>Three-time Outstanding Student honors during undergraduate study</li>
+            <li>Acknowledgement Letter for Anti-pandemic Volunteer Service</li>
+          </ul>
+        </section>
+
+        <section class="section contact">
+          <h2 class="section-title">📮 Contact</h2>
+          <p>Email: <a href="mailto:ziqianqiao0102@163.com">ziqianqiao0102@163.com</a></p>
+          <p>Affiliation: Beijing University of Technology</p>
+          <p>Research Area: Medical AI / Clinical Decision Support / Biomedical Data Mining</p>
+        </section>
+      </main>
+    </div>
   </div>
+
+  <div id="imgModal" class="modal">
+    <span class="modal-close" id="modalClose">&times;</span>
+    <img class="modal-content" id="modalImage" alt="High-resolution figure">
+  </div>
+
+  <script>
+    const modal = document.getElementById('imgModal');
+    const modalImg = document.getElementById('modalImage');
+    const closeBtn = document.getElementById('modalClose');
+    const triggers = document.querySelectorAll('.lightbox-trigger');
+
+    triggers.forEach(link => {
+      link.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href && (href.endsWith('.jpg') || href.endsWith('.jpeg') || href.endsWith('.png') || href.endsWith('.webp'))) {
+          e.preventDefault();
+          modalImg.src = href;
+          modal.classList.add('open');
+        }
+      });
+    });
+
+    closeBtn.addEventListener('click', function () {
+      modal.classList.remove('open');
+      modalImg.src = '';
+    });
+
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) {
+        modal.classList.remove('open');
+        modalImg.src = '';
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        modal.classList.remove('open');
+        modalImg.src = '';
+      }
+    });
+  </script>
 </body>
-
 </html>
-
