@@ -7,9 +7,7 @@
   <style>
     :root {
       --bg: #07111f;
-      --bg-soft: #0b1728;
       --card: rgba(14, 24, 42, 0.72);
-      --card-strong: rgba(12, 22, 38, 0.88);
       --text: #e8eefc;
       --muted: #93a4c3;
       --line: rgba(120, 156, 220, 0.18);
@@ -40,50 +38,140 @@
       color: var(--text);
       line-height: 1.8;
       background:
-        radial-gradient(circle at 12% 18%, rgba(34, 211, 238, 0.10), transparent 24%),
-        radial-gradient(circle at 88% 12%, rgba(167, 139, 250, 0.12), transparent 22%),
-        radial-gradient(circle at 70% 82%, rgba(244, 114, 182, 0.08), transparent 20%),
+        radial-gradient(circle at 12% 18%, rgba(34, 211, 238, 0.08), transparent 24%),
+        radial-gradient(circle at 88% 12%, rgba(167, 139, 250, 0.08), transparent 22%),
+        radial-gradient(circle at 70% 82%, rgba(244, 114, 182, 0.06), transparent 20%),
         linear-gradient(180deg, #06101d 0%, #081424 36%, #07111f 100%);
       min-height: 100vh;
       position: relative;
       overflow-x: hidden;
     }
 
+    /* AI grid background */
     body::before {
       content: "";
       position: fixed;
       inset: 0;
       pointer-events: none;
       background-image:
-        linear-gradient(rgba(120, 156, 220, 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(120, 156, 220, 0.06) 1px, transparent 1px);
+        linear-gradient(rgba(120, 156, 220, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(120, 156, 220, 0.05) 1px, transparent 1px);
       background-size: 34px 34px;
-      mask-image: linear-gradient(to bottom, rgba(255,255,255,0.35), rgba(255,255,255,0.08));
-      z-index: 0;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      width: 520px;
-      height: 520px;
-      right: -180px;
-      top: -160px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(96, 165, 250, 0.16), transparent 68%);
-      filter: blur(10px);
-      pointer-events: none;
+      mask-image: linear-gradient(to bottom, rgba(255,255,255,0.28), rgba(255,255,255,0.06));
       z-index: 0;
     }
 
     a {
       color: var(--link);
       text-decoration: none;
-      transition: color 0.2s ease, opacity 0.2s ease;
+      transition: color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
     }
 
     a:hover {
       color: var(--link-hover);
+    }
+
+    /* Aurora background */
+    .aurora-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .aurora {
+      position: absolute;
+      width: 48vw;
+      height: 48vw;
+      border-radius: 50%;
+      filter: blur(78px);
+      opacity: 0.16;
+      mix-blend-mode: screen;
+      animation: auroraMove 18s ease-in-out infinite alternate;
+    }
+
+    .aurora1 {
+      top: -8%;
+      left: -8%;
+      background: radial-gradient(circle, rgba(34, 211, 238, 0.95), transparent 68%);
+    }
+
+    .aurora2 {
+      top: 18%;
+      right: -12%;
+      background: radial-gradient(circle, rgba(167, 139, 250, 0.95), transparent 68%);
+      animation-duration: 22s;
+    }
+
+    .aurora3 {
+      bottom: -14%;
+      left: 26%;
+      background: radial-gradient(circle, rgba(96, 165, 250, 0.9), transparent 68%);
+      animation-duration: 20s;
+    }
+
+    @keyframes auroraMove {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      50% {
+        transform: translate3d(4vw, -3vh, 0) scale(1.08);
+      }
+      100% {
+        transform: translate3d(-4vw, 4vh, 0) scale(0.95);
+      }
+    }
+
+    /* Particles background */
+    .particles-bg {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(125, 211, 252, 0.95) 0%, rgba(125, 211, 252, 0.16) 45%, transparent 72%);
+      opacity: 0.22;
+      animation: floatParticle linear infinite;
+      filter: blur(0.2px);
+    }
+
+    .particle.small {
+      width: 6px;
+      height: 6px;
+    }
+
+    .particle.medium {
+      width: 10px;
+      height: 10px;
+    }
+
+    .particle.large {
+      width: 15px;
+      height: 15px;
+      opacity: 0.14;
+    }
+
+    @keyframes floatParticle {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.18;
+      }
+      50% {
+        opacity: 0.3;
+      }
+      100% {
+        transform: translate3d(120px, -120vh, 0) scale(1.2);
+        opacity: 0;
+      }
     }
 
     .page {
@@ -102,11 +190,29 @@
       margin-bottom: 26px;
       padding: 16px 20px;
       border-radius: 18px;
-      background: rgba(11, 23, 40, 0.68);
+      background: rgba(11, 23, 40, 0.62);
       border: 1px solid rgba(125, 211, 252, 0.12);
       box-shadow: var(--shadow-glow);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bar::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.04), transparent);
+      transform: translateX(-100%);
+      animation: heroSweep 8s linear infinite;
+    }
+
+    @keyframes heroSweep {
+      to {
+        transform: translateX(100%);
+      }
     }
 
     .hero-left {
@@ -132,6 +238,7 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      text-shadow: 0 0 20px rgba(125, 211, 252, 0.08);
     }
 
     .topbar-sub {
@@ -152,6 +259,7 @@
       font-size: 14px;
       font-weight: 600;
       white-space: nowrap;
+      box-shadow: 0 0 18px rgba(52, 211, 153, 0.08);
     }
 
     .status-dot {
@@ -218,6 +326,13 @@
       background: conic-gradient(from 180deg, rgba(34, 211, 238, 0.9), rgba(96, 165, 250, 0.9), rgba(167, 139, 250, 0.9), rgba(34, 211, 238, 0.9));
       filter: blur(10px);
       opacity: 0.55;
+      animation: avatarGlow 6s linear infinite;
+    }
+
+    @keyframes avatarGlow {
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .avatar {
@@ -282,6 +397,12 @@
       border-radius: 16px;
       background: rgba(10, 18, 31, 0.52);
       border: 1px solid rgba(125, 211, 252, 0.10);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .mini-stat:hover {
+      transform: translateY(-2px);
+      border-color: rgba(125, 211, 252, 0.24);
     }
 
     .mini-stat .k {
@@ -314,6 +435,12 @@
       background: rgba(10, 18, 31, 0.45);
       border-radius: 14px;
       border: 1px solid rgba(125, 211, 252, 0.08);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .side-item:hover {
+      transform: translateX(3px);
+      border-color: rgba(125, 211, 252, 0.22);
     }
 
     .icon-bullet {
@@ -410,6 +537,7 @@
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.02), 0 8px 24px rgba(0,0,0,0.18);
       position: relative;
       overflow: hidden;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
     }
 
     .pub-card::before {
@@ -426,7 +554,6 @@
       border-color: rgba(125, 211, 252, 0.22);
       box-shadow: 0 12px 34px rgba(0,0,0,0.28), 0 0 0 1px rgba(125, 211, 252, 0.10);
       transform: translateY(-2px);
-      transition: 0.25s ease;
     }
 
     .pub-figure,
@@ -435,7 +562,6 @@
       z-index: 1;
     }
 
-    /* 关键修改 1：外层框只负责包裹，不给图片白底造成视觉干扰 */
     .figure-link {
       display: flex;
       align-items: center;
@@ -454,17 +580,14 @@
 
     .figure-link:hover {
       transform: translateY(-2px);
-      transition: transform 0.2s ease;
     }
 
-    /* 关键修改 2：增加白色承托层，确保论文图原始白底完整保留 */
     .figure-link img {
       background: #ffffff;
       border-radius: 8px;
       box-shadow: 0 6px 16px rgba(0,0,0,0.12);
     }
 
-    /* 关键修改 3：图片完整放进框里，且尽量占满，但不裁剪 */
     .pub-thumb {
       width: 100%;
       height: 100%;
@@ -523,6 +646,7 @@
       background: rgba(96, 165, 250, 0.10);
       border: 1px solid rgba(96, 165, 250, 0.18);
       color: #dbeafe;
+      box-shadow: 0 0 18px rgba(96, 165, 250, 0.05);
     }
 
     .pub-links a:hover {
@@ -589,7 +713,6 @@
       justify-content: center;
     }
 
-    /* 关键修改 4：放大图也保留白底承托 */
     .modal-content {
       max-width: 96vw;
       max-height: 90vh;
@@ -679,6 +802,14 @@
   </style>
 </head>
 <body>
+  <div class="aurora-bg">
+    <span class="aurora aurora1"></span>
+    <span class="aurora aurora2"></span>
+    <span class="aurora aurora3"></span>
+  </div>
+
+  <div class="particles-bg" id="particlesBg"></div>
+
   <div class="page">
     <div class="hero-bar">
       <div class="hero-left">
@@ -929,7 +1060,7 @@
           <section class="section">
             <h2 class="section-title"><span class="title-icon">🏅</span>Honors & Awards</h2>
             <ul class="simple-list">
-              <li>First-Class and Second-Class Graduate Academic Scholarship, Beijing University of Technology</li>
+              <li>Second-Class Graduate Academic Scholarship, Beijing University of Technology</li>
               <li>Multiple Comprehensive Quality Scholarships, Wuhan Institute of Technology</li>
               <li>Outstanding Graduate, Wuhan Institute of Technology</li>
               <li>Three-time Outstanding Student honors during undergraduate study</li>
@@ -945,7 +1076,7 @@
           </section>
 
           <div class="footer-note">
-          
+            Designed as an academic AI-style static homepage for research presentation and publication showcase.
           </div>
         </div>
       </main>
@@ -992,6 +1123,24 @@
         modalImg.src = '';
       }
     });
+
+    const particlesBg = document.getElementById('particlesBg');
+    if (particlesBg) {
+      const count = 36;
+      const sizes = ['small', 'medium', 'large'];
+
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('span');
+        const size = sizes[Math.floor(Math.random() * sizes.length)];
+        p.className = `particle ${size}`;
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.top = Math.random() * 100 + 'vh';
+        p.style.animationDuration = (18 + Math.random() * 16) + 's';
+        p.style.animationDelay = (-Math.random() * 20) + 's';
+        p.style.opacity = (0.10 + Math.random() * 0.22).toFixed(2);
+        particlesBg.appendChild(p);
+      }
+    }
   </script>
 </body>
 </html>
