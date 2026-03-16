@@ -110,15 +110,9 @@
     }
 
     @keyframes auroraMove {
-      0% {
-        transform: translate3d(0, 0, 0) scale(1);
-      }
-      50% {
-        transform: translate3d(4vw, -3vh, 0) scale(1.08);
-      }
-      100% {
-        transform: translate3d(-4vw, 4vh, 0) scale(0.95);
-      }
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(4vw, -3vh, 0) scale(1.08); }
+      100% { transform: translate3d(-4vw, 4vh, 0) scale(0.95); }
     }
 
     .particles-bg {
@@ -138,33 +132,17 @@
       filter: blur(0.2px);
     }
 
-    .particle.small {
-      width: 6px;
-      height: 6px;
-    }
-
-    .particle.medium {
-      width: 10px;
-      height: 10px;
-    }
-
-    .particle.large {
-      width: 15px;
-      height: 15px;
-      opacity: 0.14;
-    }
+    .particle.small { width: 6px; height: 6px; }
+    .particle.medium { width: 10px; height: 10px; }
+    .particle.large { width: 15px; height: 15px; opacity: 0.14; }
 
     @keyframes floatParticle {
       0% {
         transform: translate3d(0, 0, 0) scale(1);
         opacity: 0;
       }
-      10% {
-        opacity: 0.18;
-      }
-      50% {
-        opacity: 0.3;
-      }
+      10% { opacity: 0.18; }
+      50% { opacity: 0.3; }
       100% {
         transform: translate3d(120px, -120vh, 0) scale(1.2);
         opacity: 0;
@@ -207,9 +185,7 @@
     }
 
     @keyframes heroSweep {
-      to {
-        transform: translateX(100%);
-      }
+      to { transform: translateX(100%); }
     }
 
     .hero-left {
@@ -327,9 +303,7 @@
     }
 
     @keyframes avatarGlow {
-      to {
-        transform: rotate(360deg);
-      }
+      to { transform: rotate(360deg); }
     }
 
     .avatar {
@@ -731,234 +705,271 @@
       user-select: none;
     }
 
-    /* ===== 新增：动态人物组件 ===== */
-    .ai-creatures {
+    /* ===== 边界探头人物 ===== */
+    .edge-creatures {
       position: fixed;
-      right: 22px;
-      bottom: 18px;
-      z-index: 8;
+      inset: 0;
       pointer-events: none;
-      display: flex;
-      align-items: end;
-      gap: 10px;
-      padding: 16px 18px 12px;
-      border-radius: 24px;
-      background: rgba(8, 18, 32, 0.38);
-      border: 1px solid rgba(125, 211, 252, 0.12);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.24), 0 0 26px rgba(96, 165, 250, 0.06);
-      transform-origin: bottom right;
-      animation: creaturesFloat 5s ease-in-out infinite;
+      z-index: 7;
     }
 
-    @keyframes creaturesFloat {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-5px);
-      }
+    .creature-stack {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      pointer-events: none;
+    }
+
+    .creature-stack.left {
+      left: 0;
+      top: 140px;
+    }
+
+    .creature-stack.right {
+      right: 0;
+      top: 210px;
     }
 
     .creature {
       position: relative;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      flex-direction: column;
+      pointer-events: none;
+      filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.22));
+      animation: creatureFloat 4.8s ease-in-out infinite;
     }
 
-    .creature-body {
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.12);
+    .creature:nth-child(2) {
+      animation-duration: 5.7s;
+      animation-delay: -1s;
     }
 
-    .creature.orange .creature-body {
-      width: 108px;
-      height: 72px;
-      background: #ff8a36;
-      border-radius: 64px 64px 18px 18px;
-    }
-
-    .creature.violet .creature-body {
-      width: 76px;
-      height: 132px;
-      background: linear-gradient(180deg, #8b5cf6, #5b2cf1);
-      border-radius: 14px 14px 10px 10px;
-      transform: skewX(-10deg);
-    }
-
-    .creature.dark .creature-body {
-      width: 62px;
-      height: 104px;
-      background: #131826;
-      border-radius: 10px 10px 8px 8px;
-      transform: skewX(-4deg);
-    }
-
-    .creature.yellow .creature-body {
-      width: 74px;
-      height: 112px;
-      background: #f0d313;
-      border-radius: 44px 44px 20px 20px;
-      transform: skewX(6deg);
-    }
-
-    .eye-group {
+    .creature-face {
       position: absolute;
-      display: flex;
-      gap: 7px;
-      left: 50%;
-      transform: translateX(-50%);
-      top: 16px;
+      inset: 0;
       z-index: 2;
     }
 
-    .creature.orange .eye-group {
-      top: 20px;
-    }
-
-    .creature.yellow .eye-group {
-      top: 26px;
-    }
-
     .eye {
-      position: relative;
-      width: 14px;
-      height: 14px;
-      background: #ffffff;
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: #fff;
       border-radius: 50%;
       overflow: hidden;
-      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
     }
 
-    .orange .eye {
-      width: 12px;
-      height: 12px;
-    }
-
-    .pupil {
+    .eye .pupil {
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 6px;
-      height: 6px;
-      margin-left: -3px;
-      margin-top: -3px;
-      background: #111827;
+      width: 7px;
+      height: 7px;
+      margin-left: -3.5px;
+      margin-top: -3.5px;
+      background: #151821;
       border-radius: 50%;
       transition: transform 0.08s linear;
     }
 
+    .eyebrow {
+      position: absolute;
+      width: 14px;
+      height: 3px;
+      background: #16181f;
+      border-radius: 3px;
+      opacity: 0;
+      transition: all 0.18s ease;
+    }
+
     .mouth {
       position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 16px;
+      transition: all 0.18s ease;
+    }
+
+    @keyframes creatureFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* 左边橙色 */
+    .creature.orange {
+      width: 110px;
+      height: 86px;
+      margin-left: -46px;
+    }
+
+    .creature.orange .shape {
+      width: 110px;
+      height: 86px;
+      background: #ff8b38;
+      border-radius: 80px 80px 18px 18px;
+    }
+
+    .creature.orange .eye.left-eye { left: 58px; top: 20px; }
+    .creature.orange .eye.right-eye { left: 77px; top: 21px; }
+    .creature.orange .eyebrow.left-brow { left: 58px; top: 12px; }
+    .creature.orange .eyebrow.right-brow { left: 77px; top: 12px; }
+    .creature.orange .mouth {
+      left: 67px;
+      top: 48px;
       width: 18px;
-      height: 6px;
+      height: 8px;
+      border-bottom: 3px solid #131722;
       border-radius: 0 0 12px 12px;
-      border-bottom: 3px solid #111827;
-      opacity: 0.85;
-      transition: all 0.18s ease;
     }
 
-    .orange .mouth {
-      bottom: 14px;
-      width: 16px;
+    /* 左边紫色 */
+    .creature.violet {
+      width: 96px;
+      height: 148px;
+      margin-left: -42px;
     }
 
-    .yellow .mouth {
-      width: 20px;
-      bottom: 18px;
-      transform: translateX(-50%) rotate(-12deg);
+    .creature.violet .shape {
+      width: 96px;
+      height: 148px;
+      background: linear-gradient(180deg, #8f5cff, #5b2cf1);
+      border-radius: 14px 16px 12px 12px;
+      transform: skewX(-10deg);
+      transform-origin: bottom;
     }
 
-    .dark .mouth {
-      width: 16px;
-      bottom: 12px;
-      border-bottom-color: #e5e7eb;
+    .creature.violet .eye.left-eye { left: 60px; top: 24px; }
+    .creature.violet .eye.right-eye { left: 79px; top: 24px; }
+    .creature.violet .eyebrow.left-brow { left: 60px; top: 15px; }
+    .creature.violet .eyebrow.right-brow { left: 79px; top: 15px; }
+    .creature.violet .mouth {
+      left: 71px;
+      top: 58px;
+      width: 8px;
+      height: 20px;
+      background: #131722;
+      border-radius: 3px;
     }
 
-    .eye-brow {
-      position: absolute;
-      width: 10px;
-      height: 2px;
-      background: #111827;
-      top: -5px;
-      border-radius: 2px;
-      opacity: 0.0;
-      transition: all 0.18s ease;
+    /* 右边黑色 */
+    .creature.dark {
+      width: 82px;
+      height: 126px;
+      margin-right: -36px;
     }
 
-    .dark .eye-brow {
-      background: #e5e7eb;
+    .creature.dark .shape {
+      width: 82px;
+      height: 126px;
+      background: #131826;
+      border-radius: 12px 12px 10px 10px;
+      transform: skewX(-4deg);
+      transform-origin: bottom;
     }
 
-    .eye-brow.left {
-      left: 0;
-      transform: rotate(0deg);
+    .creature.dark .eye.left-eye { left: 8px; top: 26px; }
+    .creature.dark .eye.right-eye { left: 27px; top: 26px; }
+    .creature.dark .eyebrow {
+      background: #eef2ff;
+    }
+    .creature.dark .eyebrow.left-brow { left: 8px; top: 17px; }
+    .creature.dark .eyebrow.right-brow { left: 27px; top: 17px; }
+    .creature.dark .mouth {
+      left: 17px;
+      top: 62px;
+      width: 18px;
+      height: 8px;
+      border-bottom: 3px solid #eef2ff;
+      border-radius: 0 0 12px 12px;
     }
 
-    .eye-brow.right {
-      right: 0;
-      transform: rotate(0deg);
+    /* 右边黄色 */
+    .creature.yellow {
+      width: 92px;
+      height: 132px;
+      margin-right: -40px;
     }
 
-    .creature-tag {
-      margin-top: 8px;
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(221, 234, 255, 0.7);
-      align-self: center;
+    .creature.yellow .shape {
+      width: 92px;
+      height: 132px;
+      background: #f0d313;
+      border-radius: 52px 52px 24px 24px;
+      transform: skewX(6deg);
+      transform-origin: bottom;
     }
 
-    .ai-creatures.surprised .creature {
-      animation: littleShake 0.45s ease-in-out infinite alternate;
+    .creature.yellow .eye.left-eye { left: 10px; top: 30px; }
+    .creature.yellow .eye.right-eye { left: 29px; top: 30px; }
+    .creature.yellow .eyebrow.left-brow { left: 10px; top: 21px; }
+    .creature.yellow .eyebrow.right-brow { left: 29px; top: 21px; }
+    .creature.yellow .mouth {
+      left: 18px;
+      top: 69px;
+      width: 22px;
+      height: 8px;
+      border-bottom: 3px solid #131722;
+      border-radius: 0 0 12px 12px;
+      transform: rotate(-14deg);
     }
 
-    @keyframes littleShake {
-      from {
-        transform: translateY(0px) rotate(-1deg);
-      }
-      to {
-        transform: translateY(-2px) rotate(1deg);
-      }
+    /* 惊讶表情 */
+    .edge-creatures.surprised .creature {
+      animation: surprisedBob 0.5s ease-in-out infinite alternate;
     }
 
-    .ai-creatures.surprised .mouth {
-      width: 14px;
-      height: 14px;
-      border: 3px solid #111827;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.3);
-      border-bottom: 3px solid #111827;
-      bottom: 12px;
+    @keyframes surprisedBob {
+      from { transform: translateY(0) rotate(-1deg); }
+      to { transform: translateY(-4px) rotate(1deg); }
     }
 
-    .ai-creatures.surprised .dark .mouth {
-      border-color: #e5e7eb;
-      background: rgba(255,255,255,0.06);
-    }
-
-    .ai-creatures.surprised .eye-brow {
+    .edge-creatures.surprised .eyebrow {
       opacity: 1;
-      top: -7px;
     }
 
-    .ai-creatures.surprised .eye-brow.left {
+    .edge-creatures.surprised .left-brow {
       transform: rotate(-18deg);
     }
 
-    .ai-creatures.surprised .eye-brow.right {
+    .edge-creatures.surprised .right-brow {
       transform: rotate(18deg);
     }
 
-    .ai-creatures.surprised {
-      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.3), 0 0 34px rgba(167, 139, 250, 0.14);
+    .edge-creatures.surprised .orange .mouth,
+    .edge-creatures.surprised .yellow .mouth,
+    .edge-creatures.surprised .dark .mouth {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 3px solid currentColor;
+      border-bottom: 3px solid currentColor;
+      background: rgba(255,255,255,0.18);
+    }
+
+    .edge-creatures.surprised .orange .mouth {
+      left: 69px;
+      top: 47px;
+      color: #131722;
+    }
+
+    .edge-creatures.surprised .yellow .mouth {
+      left: 21px;
+      top: 67px;
+      color: #131722;
+      transform: none;
+    }
+
+    .edge-creatures.surprised .dark .mouth {
+      left: 19px;
+      top: 60px;
+      color: #eef2ff;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .edge-creatures.surprised .violet .mouth {
+      left: 68px;
+      top: 55px;
+      width: 15px;
+      height: 22px;
+      border-radius: 9px;
+      background: #131722;
     }
 
     @media (max-width: 1120px) {
@@ -980,12 +991,18 @@
     }
 
     @media (max-width: 860px) {
-      .ai-creatures {
-        right: 12px;
-        bottom: 12px;
-        transform: scale(0.84);
-        transform-origin: bottom right;
+      .creature-stack.left {
+        top: 120px;
       }
+
+      .creature-stack.right {
+        top: 190px;
+      }
+
+      .creature.orange { transform: scale(0.9); }
+      .creature.violet { transform: scale(0.9); }
+      .creature.dark { transform: scale(0.9); }
+      .creature.yellow { transform: scale(0.9); }
     }
 
     @media (max-width: 720px) {
@@ -1035,10 +1052,20 @@
         height: 150px;
       }
 
-      .ai-creatures {
-        transform: scale(0.72);
-        right: 4px;
-        bottom: 4px;
+      .creature-stack.left {
+        top: 108px;
+      }
+
+      .creature-stack.right {
+        top: 178px;
+      }
+
+      .creature.orange,
+      .creature.violet,
+      .creature.dark,
+      .creature.yellow {
+        transform: scale(0.78);
+        transform-origin: center;
       }
     }
   </style>
@@ -1051,6 +1078,57 @@
   </div>
 
   <div class="particles-bg" id="particlesBg"></div>
+
+  <!-- 左右边界探头人物 -->
+  <div class="edge-creatures" id="edgeCreatures" aria-hidden="true">
+    <div class="creature-stack left">
+      <div class="creature orange">
+        <div class="shape"></div>
+        <div class="creature-face">
+          <span class="eyebrow left-brow"></span>
+          <span class="eyebrow right-brow"></span>
+          <span class="eye left-eye"><span class="pupil"></span></span>
+          <span class="eye right-eye"><span class="pupil"></span></span>
+          <span class="mouth"></span>
+        </div>
+      </div>
+
+      <div class="creature violet">
+        <div class="shape"></div>
+        <div class="creature-face">
+          <span class="eyebrow left-brow"></span>
+          <span class="eyebrow right-brow"></span>
+          <span class="eye left-eye"><span class="pupil"></span></span>
+          <span class="eye right-eye"><span class="pupil"></span></span>
+          <span class="mouth"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="creature-stack right">
+      <div class="creature dark">
+        <div class="shape"></div>
+        <div class="creature-face">
+          <span class="eyebrow left-brow"></span>
+          <span class="eyebrow right-brow"></span>
+          <span class="eye left-eye"><span class="pupil"></span></span>
+          <span class="eye right-eye"><span class="pupil"></span></span>
+          <span class="mouth"></span>
+        </div>
+      </div>
+
+      <div class="creature yellow">
+        <div class="shape"></div>
+        <div class="creature-face">
+          <span class="eyebrow left-brow"></span>
+          <span class="eyebrow right-brow"></span>
+          <span class="eye left-eye"><span class="pupil"></span></span>
+          <span class="eye right-eye"><span class="pupil"></span></span>
+          <span class="mouth"></span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="page">
     <div class="hero-bar">
@@ -1318,81 +1396,8 @@
           </section>
 
           <div class="footer-note">
-            Designed as an academic AI-style static homepage for research presentation and publication showcase.
-          </div>
-        </div>
+       </div>
       </main>
-    </div>
-  </div>
-
-  <!-- 新增：动态人物 -->
-  <div class="ai-creatures" id="aiCreatures" aria-hidden="true">
-    <div class="creature orange">
-      <div class="creature-body">
-        <div class="eye-group">
-          <span class="eye">
-            <span class="pupil"></span>
-            <span class="eye-brow left"></span>
-          </span>
-          <span class="eye">
-            <span class="pupil"></span>
-            <span class="eye-brow right"></span>
-          </span>
-        </div>
-        <span class="mouth"></span>
-      </div>
-      <div class="creature-tag">orange</div>
-    </div>
-
-    <div class="creature violet">
-      <div class="creature-body">
-        <div class="eye-group">
-          <span class="eye">
-            <span class="pupil"></span>
-            <span class="eye-brow left"></span>
-          </span>
-          <span class="eye">
-            <span class="pupil"></span>
-            <span class="eye-brow right"></span>
-          </span>
-        </div>
-        <span class="mouth"></span>
-      </div>
-      <div class="creature-tag">violet</div>
-    </div>
-
-    <div class="creature dark">
-      <div class="creature-body">
-        <div class="eye-group">
-          <span class="eye">
-            <span class="pupil"></span>
-            <span class="eye-brow left"></span>
-          </span>
-          <span class="eye">
-            <span class="pupil"></span>
-            <span class="eye-brow right"></span>
-          </span>
-        </div>
-        <span class="mouth"></span>
-      </div>
-      <div class="creature-tag">dark</div>
-    </div>
-
-    <div class="creature yellow">
-      <div class="creature-body">
-        <div class="eye-group">
-          <span class="eye">
-            <span class="pupil"></span>
-            <span class="eye-brow left"></span>
-          </span>
-          <span class="eye">
-            <span class="pupil"></span>
-            <span class="eye-brow right"></span>
-          </span>
-        </div>
-        <span class="mouth"></span>
-      </div>
-      <div class="creature-tag">yellow</div>
     </div>
   </div>
 
@@ -1455,10 +1460,9 @@
       }
     }
 
-    /* ===== 新增：人物眼神跟随鼠标 + hover 链接惊讶 ===== */
-    const aiCreatures = document.getElementById('aiCreatures');
+    /* ===== 人物眼睛跟随鼠标 ===== */
+    const edgeCreatures = document.getElementById('edgeCreatures');
     const pupils = document.querySelectorAll('.pupil');
-    const interactiveLinks = document.querySelectorAll('a');
 
     function movePupils(clientX, clientY) {
       pupils.forEach((pupil) => {
@@ -1470,14 +1474,11 @@
         let dx = clientX - eyeX;
         let dy = clientY - eyeY;
 
-        const max = 3.6;
+        const maxMove = 3.8;
         const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-        const scale = Math.min(max / dist, 1);
+        const scale = Math.min(maxMove / dist, 1);
 
-        const moveX = dx * scale;
-        const moveY = dy * scale;
-
-        pupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        pupil.style.transform = `translate(${dx * scale}px, ${dy * scale}px)`;
       });
     }
 
@@ -1487,22 +1488,24 @@
 
     document.addEventListener('mouseleave', () => {
       pupils.forEach((pupil) => {
-        pupil.style.transform = `translate(0px, 0px)`;
+        pupil.style.transform = 'translate(0px, 0px)';
       });
     });
 
+    /* ===== 鼠标移到可点击链接上时惊讶 ===== */
     let hoverCount = 0;
+    const clickableEls = document.querySelectorAll('a, button, .lightbox-trigger, [role="button"]');
 
-    interactiveLinks.forEach((link) => {
-      link.addEventListener('mouseenter', () => {
+    clickableEls.forEach((el) => {
+      el.addEventListener('mouseenter', () => {
         hoverCount += 1;
-        aiCreatures.classList.add('surprised');
+        edgeCreatures.classList.add('surprised');
       });
 
-      link.addEventListener('mouseleave', () => {
+      el.addEventListener('mouseleave', () => {
         hoverCount = Math.max(0, hoverCount - 1);
         if (hoverCount === 0) {
-          aiCreatures.classList.remove('surprised');
+          edgeCreatures.classList.remove('surprised');
         }
       });
     });
